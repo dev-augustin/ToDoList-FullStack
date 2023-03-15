@@ -16,9 +16,9 @@ function App() {
       <h1 className="text-3xl font-bold underline bg-red">Hello world!</h1>
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route exact path="/" element={<Home />} />
           <Route path="/addTask" element={<AddTask />} />
-          <Route path="/editTask/{id}" element={<EditTask />} />
+          <Route  path="/editTask/:id" element={<EditTask />} />
           <Route path="/deleteTask/{id}" element={<DeleteTask />} />
           <Route path="/viewTask/{id}" element={<ViewTask />} />
           <Route path="/deleteTask" element={<DeleteTask />} />
