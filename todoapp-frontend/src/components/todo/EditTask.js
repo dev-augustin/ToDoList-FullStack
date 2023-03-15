@@ -7,33 +7,29 @@ function EditTask() {
 
   const { id } = useParams();
 
-  const [task, setTask] = useState({
-    todo: "",
-  });
+  const [task, setTask] = useState({ todo: "" });
 
   const { todo } = task;
-  const onInputChange = (e) => {
-    setTask({ ...task, [e.target.name]: e.target.value });
-  };
 
   useEffect(() => {
     loadTask();
   }, []);
 
+  const onInputChange = (e) => {
+    setTask({ [e.target.name]: e.target.value });
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`http://localhost:8080/todo/${id}`, todo);
-    // navigate("/");
-  
+    await axios.put(`http://localhost:8080/todo/${id}`, task);
+    navigate("/");
   };
 
   const loadTask = async () => {
     const result = await axios.get(`http://localhost:8080/todo/${id}`);
     setTask(result.data);
-    console.log("result in edt: "+result)
+    console.log("result in edt: " + result);
   };
-
-
 
   return (
     <div>
@@ -41,12 +37,12 @@ function EditTask() {
       <form onSubmit={(e) => onSubmit(e)}>
         <label> Task</label>
         <input
-          class="shadow appearance-none border rounded p-8 m-8 w-500 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded p-8 m-8 w-500 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="add-a-task"
-          type="text"
+          type={"text"}
           placeholder="Edit a task"
-          name="task"
-          value={task}
+          name="todo"
+          value={todo}
           onChange={(e) => onInputChange(e)}
         />
         <button type="submit">Submit</button>

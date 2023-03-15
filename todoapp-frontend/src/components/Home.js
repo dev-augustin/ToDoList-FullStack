@@ -24,9 +24,7 @@ function Home() {
 
   const onInputChange = (e) => {
     setTask({ [e.target.name]: e.target.value });
-    console.log("OnInputTask: " + task);
   };
-  console.log(task);
 
   const addTask = async (e) => {
     e.preventDefault();
@@ -49,7 +47,7 @@ function Home() {
         <input
           className="shadow appearance-none border rounded p-8 m-8 w-500 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="add-a-task"
-          type={"text"}
+          type="text"
           placeholder="Add a task"
           name="todo"
           value={todo}
