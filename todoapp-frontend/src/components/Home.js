@@ -31,15 +31,8 @@ function Home() {
   const addTask = async (e) => {
     e.preventDefault();
 
-    await axios.post("http://localhost:8080/todo/", task, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "POST",
-
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
-      },
-    });
-    navigate("/");
+    await axios.post("http://localhost:8080/todo", task);
+    loadTasks();
     console.log("first: " + task);
   };
 
