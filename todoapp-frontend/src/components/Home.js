@@ -41,7 +41,7 @@ function Home() {
 
   return (
     <>
-      <h4 className="text-3xl font-bold underline">ToDo</h4>
+      {/* <h4 className="text-3xl font-bold underline">ToDo</h4> */}
 
       <form onSubmit={(e) => addTask(e)}>
         <input
@@ -63,13 +63,13 @@ function Home() {
       {toDos.map((toDo, index) => (
         <ul className="toDo-display">
           <input type="checkbox" className="form-checkbox rounded text-pink-500 m-4" />
-          <li>{toDo.todo}</li>
-          {/* <button className="m-4 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"> */}
-          <Link to={`/editTask/${toDo.id}`}>Edit</Link>
-          {/* </button> */}
+          <p className="m-4 py-2 px-4">{toDo.todo}</p>
+          <button className="m-4 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+            <Link to={`/editTask/${toDo.id}`}>Edit</Link>
+          </button>
           <button
             onClick={() => deleteTask(toDo.id)}
-            className=" m-4 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+            className="m-4 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
           >
             {/* <Link to={`http://localhost:8080/todo/${toDo.id}`}>Delete</Link> */}
             Delete

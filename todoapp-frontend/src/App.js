@@ -11,14 +11,13 @@ function App() {
     <div className="App">
       <div className="container mx-auto bg-gray-200 rounded-xl shadow border p-8 m-10">
         <p className="text-3xl text-gray-700 font-bold mb-5">Welcome!</p>
-        <p className="text-gray-500 text-lg">React and Tailwind CSS in action</p>
+        {/* <p className="text-gray-500 text-lg">React and Tailwind CSS in action</p> */}
       </div>
-      <h1 className="text-3xl font-bold underline bg-red">Hello world!</h1>
       <Router>
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/addTask" element={<AddTask />} />
-          <Route  path="/editTask/:id" element={<EditTask />} />
+          <Route path="/editTask/:id" element={<EditTask />} />
           <Route path="/deleteTask/{id}" element={<DeleteTask />} />
           <Route path="/viewTask/{id}" element={<ViewTask />} />
           <Route path="/deleteTask" element={<DeleteTask />} />
