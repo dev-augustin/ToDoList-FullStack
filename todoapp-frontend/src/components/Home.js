@@ -62,7 +62,7 @@ function Home() {
       </form>
       {toDos.map((toDo, index) => (
         <ul className="toDo-display">
-          <input type="checkbox" className="form-checkbox rounded text-pink-500 m-4" />
+          <input type="radio" className="form-checkbox rounded text-pink-500 m-4" />
           <p className="m-4 py-2 px-4">{toDo.todo}</p>
           <button className="m-4 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
             <Link to={`/editTask/${toDo.id}`}>Edit</Link>
