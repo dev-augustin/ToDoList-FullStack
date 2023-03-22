@@ -1,8 +1,9 @@
 package com.fullstack.todoApp.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -10,18 +11,24 @@ public class User {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long userId;
+    @Column(unique = true)
     private String userName;
     private String name;
     private String email;
     private String password;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name="todo", joinColumns = @JoinColumn(name="userId"), inverseJoinColumns = @JoinColumn(name=
+            "taskId"))
+    private List<Todo> toDoTaskList = new ArrayList<>();
+
     public Long getId() {
-        return id;
+        return userId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.userId = id;
     }
 
     public String getUserName() {
@@ -54,5 +61,21 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public List<Todo> getToDoTaskList() {
+        return toDoTaskList;
+    }
+
+    public void setToDoTaskList(List<Todo> toDoTaskList) {
+        this.toDoTaskList = toDoTaskList;
     }
 }

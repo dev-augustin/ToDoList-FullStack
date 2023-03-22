@@ -7,7 +7,7 @@ import DeleteTask from "./components/todo/DeleteTask";
 import ViewTask from "./components/todo/ViewTask";
 import TodoHome from "./components/TodoHome";
 import Register from "./components/users/Register";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navigationbar";
 
 function App() {
   return (

@@ -17,7 +17,7 @@ function Login() {
 
     e.preventDefault();
     if (e.target[0].value == "WHO" && e.target[1].value == "test") {
-      console.log("asfsfsaf " + (await axios.get("http://localhost:8080/todo/3")).data.todo);
+      console.log("asfsfsaf " + (await axios.get("http://localhost:8080/todos")).data.todo);
       navigate("/");
     } else {
       alert("Wrong credentials");
