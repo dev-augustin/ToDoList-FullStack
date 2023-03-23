@@ -1,9 +1,11 @@
 package com.fullstack.todoApp.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+
+
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+
+import java.util.Set;
 
 @Entity
 public class Todo {
@@ -16,21 +18,11 @@ public class Todo {
     private String todo;
 
     private String status;
-
-//    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-//    @JoinTable(name="user_task", joinColumns = @JoinColumn(name="user_id"),inverseJoinColumns = @JoinColumn(name=
+//    @ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+//    @JoinTable(name="user", joinColumns = @JoinColumn(name="user_id"),inverseJoinColumns = @JoinColumn(name=
 //            "task_id"))
-//            private Set<User> users;
+//    private Set<User> users;
 
-
-
-    public String getTodo() {
-        return todo;
-    }
-
-    public void setTodo(String todo) {
-        this.todo = todo;
-    }
 
     public Long getTaskId() {
         return taskId;
@@ -40,6 +32,14 @@ public class Todo {
         this.taskId = taskId;
     }
 
+    public String getTodo() {
+        return todo;
+    }
+
+    public void setTodo(String todo) {
+        this.todo = todo;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -47,4 +47,6 @@ public class Todo {
     public void setStatus(String status) {
         this.status = status;
     }
+
+
 }

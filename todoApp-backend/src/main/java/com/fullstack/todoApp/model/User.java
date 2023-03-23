@@ -1,5 +1,7 @@
 package com.fullstack.todoApp.model;
 
+
+
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -17,18 +19,18 @@ public class User {
     private String name;
     private String email;
     private String password;
-
+//
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name="todo", joinColumns = @JoinColumn(name="userId"), inverseJoinColumns = @JoinColumn(name=
+    @JoinTable(name="todo_user", joinColumns = @JoinColumn(name="userId"), inverseJoinColumns = @JoinColumn(name=
             "taskId"))
-    private List<Todo> toDoTaskList = new ArrayList<>();
+ private List<Todo> toDoTaskList = new ArrayList<>();
 
-    public Long getId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setId(Long id) {
-        this.userId = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
@@ -61,14 +63,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public List<Todo> getToDoTaskList() {
