@@ -3,8 +3,11 @@ package com.fullstack.todoApp.controller;
 
 import com.fullstack.todoApp.exception.UserNotFoundException;
 import com.fullstack.todoApp.model.Todo;
+import com.fullstack.todoApp.model.User;
 import com.fullstack.todoApp.repository.TodoTaskRepository;
+import com.fullstack.todoApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.config.Task;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,9 +17,11 @@ import java.util.List;
 public class TodoController {
     @Autowired
     private TodoTaskRepository taskRepository;
+    private UserRepository userRepository;
 
     @PostMapping("/todo")
     Todo newTask(@RequestBody Todo newTask){
+
         return taskRepository.save(newTask);
     }
 
@@ -36,6 +41,8 @@ public class TodoController {
         return taskRepository.findById(id)
                 .map(task -> {
                     task.setTodo(newTask.getTodo());
+                    task.setStatus(newTask.getStatus());
+                    task.setUser(newTask.getUser());
                     return taskRepository.save(task);
                 }).orElseThrow(()-> new UserNotFoundException(id));
     }

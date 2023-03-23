@@ -2,27 +2,40 @@ package com.fullstack.todoApp.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 public class Todo {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "task_id",unique = true)
     private Long taskId;
-//    @Size(min =2, max = 50, message = "Max and Min Size")
     @NotEmpty(message = "Not empty")
     private String todo;
-
     private String status;
-//    @ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-//    @JoinTable(name="user", joinColumns = @JoinColumn(name="user_id"),inverseJoinColumns = @JoinColumn(name=
-//            "task_id"))
-//    private Set<User> users;
 
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "userId")
+    private User user;
+
+    public Todo(){
+
+    }
+    public Todo(Long taskId, String todo, String status, User user) {
+        this.taskId = taskId;
+        this.todo = todo;
+        this.status = status;
+        this.user = user;
+    }
 
     public Long getTaskId() {
         return taskId;
@@ -48,5 +61,11 @@ public class Todo {
         this.status = status;
     }
 
+    public User getUser() {
+        return user;
+    }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

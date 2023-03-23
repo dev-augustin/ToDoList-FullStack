@@ -2,28 +2,53 @@ package com.fullstack.todoApp.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long userId;
     @Column(unique = true)
     private String userName;
     private String name;
     private String email;
     private String password;
+
 //
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name="todo_user", joinColumns = @JoinColumn(name="userId"), inverseJoinColumns = @JoinColumn(name=
-            "taskId"))
- private List<Todo> toDoTaskList = new ArrayList<>();
+//    @OneToMany(mappedBy = "user")
+//    private List<Todo> todoList;
+
+    protected User(){
+
+    }
+
+    public User(Long userId, String userName, String name, String email, String password) {
+        super();
+        this.userId = userId;
+        this.userName = userName;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(Long userId, String userName, String name, String email, String password, List<Todo> todoList) {
+        this.userId = userId;
+        this.userName = userName;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 
     public Long getUserId() {
         return userId;
@@ -65,11 +90,11 @@ public class User {
         this.password = password;
     }
 
-    public List<Todo> getToDoTaskList() {
-        return toDoTaskList;
-    }
-
-    public void setToDoTaskList(List<Todo> toDoTaskList) {
-        this.toDoTaskList = toDoTaskList;
-    }
+//    public List<Todo> getTodoList() {
+//        return todoList;
+//    }
+//
+//    public void setTodoList(List<Todo> todoList) {
+//        this.todoList = todoList;
+//    }
 }
