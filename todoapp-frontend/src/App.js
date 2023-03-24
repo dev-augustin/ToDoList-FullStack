@@ -24,7 +24,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route exact path="/" element={<Home />} />
           <Route path="/addTask" element={<AddTask />} />
-          <Route path="/editTask/:id" element={<EditTask />} />
+          <Route path="/editTask/:id/:taskState" element={<EditTask />} />
           <Route path="/deleteTask/{id}" element={<DeleteTask />} />
           <Route path="/viewTask/{id}" element={<ViewTask />} />
           <Route path="/deleteTask" element={<DeleteTask />} />

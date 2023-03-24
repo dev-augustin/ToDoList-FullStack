@@ -1,16 +1,6 @@
 package com.fullstack.todoApp.model;
 
-
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 
 @Entity
 public class User {
@@ -25,24 +15,11 @@ public class User {
     private String email;
     private String password;
 
-//
-//    @OneToMany(mappedBy = "user")
-//    private List<Todo> todoList;
-
-    protected User(){
+    public User() {
 
     }
 
     public User(Long userId, String userName, String name, String email, String password) {
-        super();
-        this.userId = userId;
-        this.userName = userName;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
-
-    public User(Long userId, String userName, String name, String email, String password, List<Todo> todoList) {
         this.userId = userId;
         this.userName = userName;
         this.name = name;
@@ -89,12 +66,4 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-//    public List<Todo> getTodoList() {
-//        return todoList;
-//    }
-//
-//    public void setTodoList(List<Todo> todoList) {
-//        this.todoList = todoList;
-//    }
 }

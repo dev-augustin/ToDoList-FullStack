@@ -14,12 +14,12 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @PostMapping("/user")
+    @PostMapping("/addUser")
     User newUser(@RequestBody User newUser){
         return userRepository.save(newUser);
     }
 
-    @GetMapping("/users")
+    @GetMapping("/allUsers")
     List<User> getAllUsers(){
         return userRepository.findAll();
     }
@@ -30,7 +30,7 @@ public class UserController {
                 .orElseThrow(()-> new UserNotFoundException(id));
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/updateUser/{id}")
     User updateUser(@RequestBody User newUser, @PathVariable Long id){
         return userRepository.findById(id)
                 .map(user -> {
@@ -42,7 +42,7 @@ public class UserController {
                 }).orElseThrow(()-> new UserNotFoundException(id));
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/delete-User/{id}")
     String deleteUser(@PathVariable Long id){
         if(!userRepository.existsById(id)){
             throw new UserNotFoundException(id);

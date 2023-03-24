@@ -8,36 +8,40 @@ import { Row, Col } from "react-bootstrap";
 
 function Home() {
   const [toDos, setToDos] = useState([]);
-  const [task, setTask] = useState({ todo: "" });
+  const [isChecked, setIsChecked] = useState(false);
+  const [task, setTask] = useState({ taskName: "", taskCompleted: false });
 
   const { id } = useParams();
   let navigate = useNavigate();
 
-  const { todo } = task;
+  // const { todo } = task;
 
   useEffect(() => {
     loadTasks();
   }, []);
 
   const loadTasks = async () => {
-    const result = await axios.get("http://localhost:8080/todos");
+    const result = await axios.get("http://localhost:8080/allTasks");
     setToDos(result.data);
   };
 
-  const onInputChange = (e) => {
-    setTask({ [e.target.name]: e.target.value });
+  const onInputChange = (e, taskCompleted) => {
+    setIsChecked(false);
+    console.log(task);
+    setTask({ taskName: e.target.value, taskCompleted: isChecked });
+    console.log(task);
   };
 
   const addTask = async (e) => {
     e.preventDefault();
 
-    await axios.post("http://localhost:8080/todo", task);
+    await axios.post("http://localhost:8080/addTask", task);
     loadTasks();
     console.log("first: " + task);
   };
 
   const deleteTask = async (id) => {
-    await axios.delete(`http://localhost:8080/todo/${id}`);
+    await axios.delete(`http://localhost:8080/deleteTask/${id}`);
     loadTasks();
   };
 
@@ -53,8 +57,8 @@ function Home() {
               id="add-a-task"
               type="text"
               placeholder="Add a task"
-              name="todo"
-              value={todo}
+              name="taskName"
+              value={task.taskName}
               onChange={(e) => onInputChange(e)}
             />
             {/* </Form.Group> */}
@@ -69,12 +73,12 @@ function Home() {
       {toDos.map((toDo, index) => (
         <ul className="toDo-display">
           <input type="radio" className="form-checkbox rounded text-pink-500 m-4" />
-          <p className="m-4 py-2 px-4">{toDo.todo}</p>
+          <p className="m-4 py-2 px-4">{toDo.taskName}</p>
           <button className="m-4 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-            <Link to={`/editTask/${toDo.id}`}>Edit</Link>
+            <Link to={`/editTask/${toDo.taskId}/${isChecked}`}>Edit</Link>
           </button>
           <button
-            onClick={() => deleteTask(toDo.id)}
+            onClick={() => deleteTask(toDo.taskId)}
             className="m-4 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
           >
             {/* <Link to={`http://localhost:8080/todo/${toDo.id}`}>Delete</Link> */}

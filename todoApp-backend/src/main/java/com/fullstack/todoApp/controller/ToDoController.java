@@ -19,35 +19,34 @@ public class TodoController {
     private TodoTaskRepository taskRepository;
     private UserRepository userRepository;
 
-    @PostMapping("/todo")
+    @PostMapping("/addTask")
     Todo newTask(@RequestBody Todo newTask){
 
         return taskRepository.save(newTask);
     }
 
-    @GetMapping("/todos")
+    @GetMapping("/allTasks")
     List<Todo> getAllUsers(){
         return taskRepository.findAll();
     }
 
-    @GetMapping("/todo/{id}")
+    @GetMapping("/task/{id}")
     Todo getTaskById(@PathVariable Long id){
         return taskRepository.findById(id)
                 .orElseThrow(()-> new UserNotFoundException(id));
     }
 
-    @PutMapping("/todo/{id}")
+    @PutMapping("/updateTask/{id}")
     Todo updateTask(@RequestBody Todo newTask, @PathVariable Long id){
         return taskRepository.findById(id)
                 .map(task -> {
-                    task.setTodo(newTask.getTodo());
-                    task.setStatus(newTask.getStatus());
-                    task.setUser(newTask.getUser());
+                    task.setTaskName(newTask.getTaskName());
+                    task.setTaskCompleted(newTask.isTaskCompleted());
                     return taskRepository.save(task);
                 }).orElseThrow(()-> new UserNotFoundException(id));
     }
 
-    @DeleteMapping("/todo/{id}")
+    @DeleteMapping("/deleteTask/{id}")
     String deleteTask(@PathVariable Long id){
         if(!taskRepository.existsById(id)){
             throw new UserNotFoundException(id);
