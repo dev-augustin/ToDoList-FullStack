@@ -36,6 +36,16 @@ public class TodoController {
                 .orElseThrow(()-> new UserNotFoundException(id));
     }
 
+    @GetMapping("/test")
+    List<Todo> findByTasksCompleted(){
+        return taskRepository.findByIsTaskCompleted();
+    }
+
+    @GetMapping("/not")
+    List<Todo> findByTasksNotCompleted(){
+        return taskRepository.findByTaskNotCompleted();
+    }
+
     @PutMapping("/updateTask/{id}")
     Todo updateTask(@RequestBody Todo newTask, @PathVariable Long id){
         return taskRepository.findById(id)
@@ -45,6 +55,10 @@ public class TodoController {
                     return taskRepository.save(task);
                 }).orElseThrow(()-> new UserNotFoundException(id));
     }
+
+
+
+
 
     @DeleteMapping("/deleteTask/{id}")
     String deleteTask(@PathVariable Long id){

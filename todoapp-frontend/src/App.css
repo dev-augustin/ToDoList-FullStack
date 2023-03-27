@@ -7,6 +7,20 @@
   flex-direction: row;
 }
 
+.toDo-display input[type="radio"]:checked + label {
+color:brown;
+text-decoration: line-through;
+}
+
+.taskIncomplete {
+  text-decoration: none;
+}
+
+.taskComplete {
+  text-decoration: line-through;
+  background-color: blue;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

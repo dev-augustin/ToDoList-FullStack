@@ -8,6 +8,7 @@ import ViewTask from "./components/todo/ViewTask";
 import TodoHome from "./components/TodoHome";
 import Register from "./components/users/Register";
 import Navbar from "./components/Navigationbar";
+import ListDisplay from "./components/users/ListDisplay";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/todoHome" element={<TodoHome />} />
           <Route path="/register" element={<Register />} />
           <Route exact path="/" element={<Home />} />
+          <Route path="/status" element={<ListDisplay />} />
           <Route path="/addTask" element={<AddTask />} />
           <Route path="/editTask/:id/:taskState" element={<EditTask />} />
           <Route path="/deleteTask/{id}" element={<DeleteTask />} />
