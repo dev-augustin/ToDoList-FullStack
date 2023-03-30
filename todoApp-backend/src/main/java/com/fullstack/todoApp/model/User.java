@@ -1,6 +1,8 @@
 package com.fullstack.todoApp.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import org.springframework.lang.NonNull;
 
 @Entity
 @Table(name="users", uniqueConstraints = {@UniqueConstraint(columnNames = {"userName", "email" })})
@@ -10,11 +12,25 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long userId;
-    @Column(unique = true)
+
+    @NonNull
+    @NotBlank(message = "user name cannot be blank")
+    @Column(unique = true, nullable = false)
     private String userName;
+
+    @NonNull
+    @NotBlank(message = "name cannot be blank")
+    @Column(nullable = false)
     private String name;
-    @Column(unique = true)
+
+    @NonNull
+    @NotBlank(message = "email cannot be blank")
+    @Column(unique = true, nullable = false)
     private String email;
+
+    @NonNull
+    @NotBlank(message = "password cannot be blank")
+    @Column(nullable = false)
     private String password;
 
     public User() {

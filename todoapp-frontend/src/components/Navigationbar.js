@@ -10,7 +10,7 @@ function Navigationbar() {
         <Container>
           <Navbar.Brand href="/">To Do List</Navbar.Brand>
           <Navbar.Toggle />
-          <Navbar.Collapse className="justify-content-end">
+          {/* <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
               Signed in as: <a href="#login">Mark Otto</a>
             </Navbar.Text>
@@ -22,7 +22,7 @@ function Navigationbar() {
                 Logout
               </Link>
             </Navbar.Text>
-          </Navbar.Collapse>
+          </Navbar.Collapse> */}
         </Container>
       </Navbar>
     </>

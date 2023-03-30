@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 public class TodoController {
     @Autowired
     private TodoTaskRepository taskRepository;
@@ -36,12 +36,12 @@ public class TodoController {
                 .orElseThrow(()-> new UserNotFoundException(id));
     }
 
-    @GetMapping("/test")
+    @GetMapping("/inCompleteTasks")
     List<Todo> findByTasksCompleted(){
         return taskRepository.findByIsTaskCompleted();
     }
 
-    @GetMapping("/not")
+    @GetMapping("/completedTasks")
     List<Todo> findByTasksNotCompleted(){
         return taskRepository.findByTaskNotCompleted();
     }

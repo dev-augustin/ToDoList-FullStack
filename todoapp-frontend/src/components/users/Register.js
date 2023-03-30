@@ -15,7 +15,12 @@ function Register() {
     console.log("eister: " + e);
     e.preventDefault();
 
-    await axios.post("http://localhost:8080/user", user);
+    await axios.post("http://localhost:8080/addUser", user, {
+      auth: {
+        username: "user",
+        password: "user",
+      },
+    });
     alert("User account created successfully");
 
     navigate("/todoHome");

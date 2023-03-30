@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -6,22 +6,48 @@ function Login() {
   let navigate = useNavigate();
   const [user, setUser] = useState({ userName: "", password: "" });
   const { userName, password } = user;
+  const [allUsers, setAllUser] = useState([]);
+  let userName1 = "";
+  useEffect(() => {
+    async function fetchAllUsers() {
+      const allUsers = await axios.get("http://localhost:8080/allUsers", {
+        auth: {
+          username: "user",
+          password: "user",
+        },
+      });
+      console.log(allUsers.data);
+      setAllUser(allUsers.data);
+      console.log(allUsers.data.length);
+    }
+
+    fetchAllUsers();
+  }, []);
+
   const onInputChange = (e) => {
-    console.log("e name: " + e.target.name + " vlaue: " + e.target.value);
+    console.log(e);
     setUser({ [e.target.name]: e.target.value });
   };
 
   const onSubmit = async (e) => {
-    console.log("I am here");
-    console.log("eister: " + e.target[1].value);
+    console.log("I am here: " + allUsers[0].userName);
+    for (let i = 0; i < allUsers.length; i++) {
+      if (allUsers[i].userName == e.target[0].value && allUsers[i].password == e.target[1].value) {
+        console.log(": " + allUsers[i].userName + " : " + allUsers[i].password);
+        userName1 = allUsers[i].userName;
+        navigate("/", { state: { userName: userName1 } });
+      } else {
+        console.log("Unsuccessful");
+      }
+    }
 
     e.preventDefault();
-    if (e.target[0].value == "WHO" && e.target[1].value == "test") {
-      console.log("asfsfsaf " + (await axios.get("http://localhost:8080/todos")).data.todo);
-      navigate("/");
-    } else {
-      alert("Wrong credentials");
-    }
+    // if (e.target[0].value == "WHO" && e.target[1].value == "test") {
+    //   console.log("asfsfsaf " + (await axios.get("http://localhost:8080/allTasks")).data.todo);
+    //   navigate("/");
+    // } else {
+    //   alert("Wrong credentials");
+    // }
 
     // await axios.get("http://localhost:8080/todos");
   };

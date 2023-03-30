@@ -1,8 +1,9 @@
 package com.fullstack.todoApp.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -11,9 +12,16 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.Arrays;
 
 @EnableWebSecurity
 @Configuration
@@ -23,22 +31,25 @@ public class SecurityConfig {
 //@Autowired
 //public BCryptPasswordEncoder passwordEncoder;
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
-                .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.DELETE, "/delete-User/*").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST).hasAnyRole("ADMIN", "USER")
-                .requestMatchers(HttpMethod.GET).permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .httpBasic()
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        return http.build();
 
-    }
+
+//    @Bean
+//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http
+//                .csrf().disable()
+//                .authorizeHttpRequests()
+//                .requestMatchers(HttpMethod.DELETE, "/delete-User/*").hasRole("ADMIN")
+//                .requestMatchers(HttpMethod.POST).hasAnyRole("ADMIN", "USER")
+//                .requestMatchers(HttpMethod.GET).permitAll()
+//                .requestMatchers(HttpMethod.PUT).permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .httpBasic()
+//                .and()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//        return http.build();
+//
+//    }
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -59,4 +70,26 @@ public class SecurityConfig {
                 .build();
         return new InMemoryUserDetailsManager(admin, user);
     }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .cors().and()
+                .csrf().disable()
+                .authorizeHttpRequests()
+                .requestMatchers(HttpMethod.POST, "/addUser").permitAll()
+                .requestMatchers(HttpMethod.POST, "/addTask").permitAll()
+                .requestMatchers(HttpMethod.GET, "/allTasks", "/inCompleteTasks", "/completedTasks").permitAll()
+                .requestMatchers(HttpMethod.DELETE, "/deleteTask/*").permitAll()
+                .requestMatchers(HttpMethod.PUT, "/updateTask/*").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .httpBasic()
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        return http.build();
+
+    }
+
+
 }

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "../App.css";
 import axios from "axios";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Row, Col, Card, InputGroup } from "react-bootstrap";
 import ListDisplay from "./users/ListDisplay";
+import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
 
 function Home() {
   const [toDos, setToDos] = useState([]);
@@ -14,6 +16,10 @@ function Home() {
   const { id } = useParams();
   let navigate = useNavigate();
 
+  const location = useLocation();
+  console.log(location.state.userName);
+  const loggedInUser = location.state.userName;
+
   // const { todo } = task;
 
   useEffect(() => {
@@ -21,20 +27,29 @@ function Home() {
   }, []);
 
   const loadTasks = async () => {
-    const result = await axios.get("http://localhost:8080/allTasks");
+    const result = await axios.get(
+      "http://localhost:8080/allTasks"
+
+      // ,{
+      //   auth: {
+      //     username: "admin",
+      //     password: "pass"
+      //   }
+      // }
+    );
     setToDos(result.data);
   };
 
   const getCompletedTasks = async () => {
     console.log("I am in get");
-    const result = await axios.get("http://localhost:8080/test");
+    const result = await axios.get("http://localhost:8080/completedTasks");
     console.log(result.data);
     setToDos(result.data);
   };
 
   const getNotCompletedTasks = async () => {
     console.log("I am in notget");
-    const result = await axios.get("http://localhost:8080/not");
+    const result = await axios.get("http://localhost:8080/inCompleteTasks");
     console.log(result);
     setToDos(result.data);
   };
@@ -71,7 +86,27 @@ function Home() {
 
   return (
     <>
+      <Navbar>
+        <Container>
+          <Navbar.Collapse className="justify-content-end">
+            <Navbar.Text>
+              Signed in as: <a href="#login">{loggedInUser}</a>
+            </Navbar.Text>
+            <Navbar.Text>
+              <Link
+                to="/todoHome"
+                className=" m-4 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+              >
+                Logout
+              </Link>
+            </Navbar.Text>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
       <div className="container ">
+        <h4>
+          Welcome <i>!{loggedInUser}</i>
+        </h4>
         <Form onSubmit={(e) => addTask(e)}>
           <Row className="mt-6">
             <Col className="mx-40 mt-4">

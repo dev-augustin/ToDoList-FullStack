@@ -3,10 +3,14 @@ package com.fullstack.todoApp.controller;
 import com.fullstack.todoApp.exception.UserNotFoundException;
 import com.fullstack.todoApp.model.User;
 import com.fullstack.todoApp.repository.UserRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -16,10 +20,12 @@ public class UserController {
     private UserRepository userRepository;
 
     @PostMapping("/addUser")
-    User newUser(@RequestBody User newUser){
+    User newUser(@Valid @RequestBody User newUser){
         BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
         String encodedPwd = passwordEncoder.encode(newUser.getPassword());
         newUser.setPassword(encodedPwd);
+//        userRepository.save(newUser);
+//        return new ResponseEntity<>(HttpStatus.CREATED);
         return userRepository.save(newUser);
     }
 
@@ -32,6 +38,11 @@ public class UserController {
     User getUserById(@PathVariable Long id){
         return userRepository.findById(id)
                 .orElseThrow(()-> new UserNotFoundException(id));
+    }
+
+    @GetMapping("/username")
+    public String user(Principal principal) {
+        return principal.getName();
     }
 
     @PutMapping("/updateUser/{id}")
