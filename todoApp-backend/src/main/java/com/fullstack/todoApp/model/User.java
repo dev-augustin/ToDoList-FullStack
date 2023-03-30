@@ -3,6 +3,7 @@ package com.fullstack.todoApp.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name="users", uniqueConstraints = {@UniqueConstraint(columnNames = {"userName", "email" })})
 public class User {
 
     @Id
@@ -12,6 +13,7 @@ public class User {
     @Column(unique = true)
     private String userName;
     private String name;
+    @Column(unique = true)
     private String email;
     private String password;
 

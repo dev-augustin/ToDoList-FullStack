@@ -28,7 +28,7 @@ function EditTask() {
   };
 
   const onSubmit = async (e) => {
-    console.log("I am here");
+    console.log("I am here: " + task.taskName);
     e.preventDefault();
     await axios.put(`http://localhost:8080/updateTask/${id}`, task);
     navigate("/");

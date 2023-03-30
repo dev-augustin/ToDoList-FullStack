@@ -58,7 +58,7 @@ public class UserTaskController {
     }
 
     @GetMapping("/find/{name}")
-    public List<User> findUserByName(String name){
-        return userRepository.findByName(name);
+    public User findUserByName(String name){
+        return userRepository.findByUserName(name);
     }
 }

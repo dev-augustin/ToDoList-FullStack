@@ -8,7 +8,7 @@ function Navigationbar() {
     <>
       <Navbar>
         <Container>
-          <Navbar.Brand href="#home">To Do List</Navbar.Brand>
+          <Navbar.Brand href="/">To Do List</Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>

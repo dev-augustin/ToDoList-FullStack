@@ -26,7 +26,7 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route path="/status" element={<ListDisplay />} />
           <Route path="/addTask" element={<AddTask />} />
-          <Route path="/editTask/:id/:taskState" element={<EditTask />} />
+          <Route path="/updateTask/:id/:taskState" element={<EditTask />} />
           <Route path="/deleteTask/{id}" element={<DeleteTask />} />
           <Route path="/viewTask/{id}" element={<ViewTask />} />
           <Route path="/deleteTask" element={<DeleteTask />} />

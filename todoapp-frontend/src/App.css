@@ -2,15 +2,18 @@
   text-align: center;
 }
 
-.toDo-display {
+.toDo-body {
   display: flex;
   flex-direction: row;
+  background-color: #317280;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
-.toDo-display input[type="radio"]:checked + label {
+/* .toDo-display input[type="radio"]:checked + label {
 color:brown;
 text-decoration: line-through;
-}
+} */
 
 .taskIncomplete {
   text-decoration: none;
@@ -18,7 +21,7 @@ text-decoration: line-through;
 
 .taskComplete {
   text-decoration: line-through;
-  background-color: blue;
+  /* background-color: blue; */
 }
 
 @media (prefers-reduced-motion: no-preference) {

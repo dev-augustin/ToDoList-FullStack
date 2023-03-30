@@ -4,6 +4,7 @@ import com.fullstack.todoApp.exception.UserNotFoundException;
 import com.fullstack.todoApp.model.User;
 import com.fullstack.todoApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,9 @@ public class UserController {
 
     @PostMapping("/addUser")
     User newUser(@RequestBody User newUser){
+        BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
+        String encodedPwd = passwordEncoder.encode(newUser.getPassword());
+        newUser.setPassword(encodedPwd);
         return userRepository.save(newUser);
     }
 
