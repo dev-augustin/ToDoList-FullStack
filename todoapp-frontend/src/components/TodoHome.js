@@ -7,6 +7,7 @@ function TodoHome() {
     <>
       <div>
         <h4>Todo List</h4>
+        <h6> A simple ToDo list to manage your tasks</h6>
       </div>
 
       <div>

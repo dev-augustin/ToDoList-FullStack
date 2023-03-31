@@ -1,9 +1,7 @@
 package com.fullstack.todoApp.config;
 
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -14,14 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.util.Arrays;
 
 @EnableWebSecurity
 @Configuration
@@ -32,8 +22,7 @@ public class SecurityConfig {
 //public BCryptPasswordEncoder passwordEncoder;
 
 
-
-//    @Bean
+    //    @Bean
 //    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 //        http
 //                .csrf().disable()
@@ -51,12 +40,12 @@ public class SecurityConfig {
 //
 //    }
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public UserDetailsService userDetailsService(){
+    public UserDetailsService userDetailsService() {
         UserDetails admin = User.builder()
                 .username("admin")
                 .password(passwordEncoder().encode("pass"))
@@ -90,6 +79,34 @@ public class SecurityConfig {
         return http.build();
 
     }
+
+//    @Bean
+//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http
+//                .cors().and()
+//                .csrf().disable()
+//                .authorizeHttpRequests()
+//                .requestMatchers(HttpMethod.POST, "/addUser").permitAll()
+//                .requestMatchers(HttpMethod.POST, "/addTask").permitAll()
+//                .requestMatchers(HttpMethod.GET, "/allTasks", "/inCompleteTasks", "/completedTasks").permitAll()
+//                .requestMatchers(HttpMethod.DELETE, "/deleteTask/*").permitAll()
+//                .requestMatchers(HttpMethod.PUT, "/updateTask/*").permitAll()
+//                .requestMatchers(
+//                        HttpMethod.GET,
+//                        "/index*", "/static/**", "/*.js", "/*.json", "/*.ico")
+//                .permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin().loginPage("/index.html")
+//                .loginProcessingUrl("/perform_login")
+//                .defaultSuccessUrl("/", true)
+//                .failureUrl("/index.html?error=true")
+//                .and()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//        return http.build();
+//
+//    }
+
 
 
 }

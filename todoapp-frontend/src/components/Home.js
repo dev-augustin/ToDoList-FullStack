@@ -16,9 +16,9 @@ function Home() {
   const { id } = useParams();
   let navigate = useNavigate();
 
-  const location = useLocation();
-  console.log(location.state.userName);
-  const loggedInUser = location.state.userName;
+  // const location = useLocation();
+  // console.log(location.state.userName);
+  // const loggedInUser = location.state.userName;
 
   // const { todo } = task;
 
@@ -88,9 +88,11 @@ function Home() {
     <>
       <Navbar>
         <Container>
+          <Navbar.Brand href="/">To Do List</Navbar.Brand>
+          <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              Signed in as: <a href="#login">{loggedInUser}</a>
+              Signed in as: <a href="#login">Test</a>
             </Navbar.Text>
             <Navbar.Text>
               <Link
@@ -105,27 +107,29 @@ function Home() {
       </Navbar>
       <div className="container ">
         <h4>
-          Welcome <i>!{loggedInUser}</i>
+          Welcome <i></i>
         </h4>
-        <Form onSubmit={(e) => addTask(e)}>
-          <Row className="mt-6">
-            <Col className="mx-40 mt-4">
-              <Form.Control
-                id="add-a-task"
-                type="text"
-                placeholder="Add a new task"
-                name="taskName"
-                value={task.taskName}
-                onChange={(e) => onInputChange(e)}
-              />
-            </Col>
-            <Col className="mt-4">
-              <Button variant="secondary" type="submit">
-                Add Task
-              </Button>
-            </Col>
-          </Row>
-        </Form>
+        <Container className="mx-auto">
+          <Form onSubmit={(e) => addTask(e)}>
+            <Row className="mt-6">
+              <Col className="mx-40 mt-4">
+                <Form.Control
+                  id="add-a-task"
+                  type="text"
+                  placeholder="Add a new task"
+                  name="taskName"
+                  value={task.taskName}
+                  onChange={(e) => onInputChange(e)}
+                />
+              </Col>
+              <Col className="mt-4">
+                <Button variant="secondary" type="submit">
+                  Add Task
+                </Button>
+              </Col>
+            </Row>
+          </Form>
+        </Container>
         {/* <Form onSubmit={(e) => addTask(e)}>
           <Row className="mx-auto m-4">
             <Col className="sm-10">

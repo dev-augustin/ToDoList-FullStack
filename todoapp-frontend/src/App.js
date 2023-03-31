@@ -9,6 +9,7 @@ import TodoHome from "./components/TodoHome";
 import Register from "./components/users/Register";
 import Navbar from "./components/Navigationbar";
 import ListDisplay from "./components/users/ListDisplay";
+import Login from "./components/users/Login"
 
 function App() {
   return (
@@ -19,11 +20,12 @@ function App() {
       {/* <p className="text-gray-500 text-lg">React and Tailwind CSS in action</p> */}
 
       <Router>
-        <Navbar />
+        {/* <Navbar /> */}
         <Routes>
           <Route path="/todoHome" element={<TodoHome />} />
           <Route path="/register" element={<Register />} />
-          <Route exact path="/" element={<Home />} />
+          <Route exact path="/home" element={<Home />} />
+          <Route path="/" element={<Login/>}/>
           <Route path="/status" element={<ListDisplay />} />
           <Route path="/addTask" element={<AddTask />} />
           <Route path="/updateTask/:id/:taskState" element={<EditTask />} />

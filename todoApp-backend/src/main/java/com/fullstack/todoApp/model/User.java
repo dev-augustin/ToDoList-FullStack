@@ -18,13 +18,13 @@ public class User {
     @Column(unique = true, nullable = false)
     private String userName;
 
-    @NonNull
-    @NotBlank(message = "name cannot be blank")
+//    @NonNull
+//    @NotBlank(message = "name cannot be blank")
     @Column(nullable = false)
     private String name;
 
-    @NonNull
-    @NotBlank(message = "email cannot be blank")
+//    @NonNull
+//    @NotBlank(message = "email cannot be blank")
     @Column(unique = true, nullable = false)
     private String email;
 

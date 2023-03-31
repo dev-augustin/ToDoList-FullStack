@@ -8,40 +8,50 @@ function Login() {
   const { userName, password } = user;
   const [allUsers, setAllUser] = useState([]);
   let userName1 = "";
-  useEffect(() => {
-    async function fetchAllUsers() {
-      const allUsers = await axios.get("http://localhost:8080/allUsers", {
-        auth: {
-          username: "user",
-          password: "user",
-        },
-      });
-      console.log(allUsers.data);
-      setAllUser(allUsers.data);
-      console.log(allUsers.data.length);
-    }
+  // useEffect(() => {
+  //   async function fetchAllUsers() {
+  //     const allUsers = await axios.get("http://localhost:8080/allUsers", {
+  //       auth: {
+  //         username: "user",
+  //         password: "user",
+  //       },
+  //     });
+  //     console.log(allUsers.data);
+  //     setAllUser(allUsers.data);
+  //     console.log(allUsers.data.length);
+  //   }
 
-    fetchAllUsers();
-  }, []);
+  //   fetchAllUsers();
+  // }, []);
 
   const onInputChange = (e) => {
     console.log(e);
-    setUser({ [e.target.name]: e.target.value });
+    setUser({ ...user, [e.target.name]: e.target.value });
+    console.log(user);
   };
 
   const onSubmit = async (e) => {
-    console.log("I am here: " + allUsers[0].userName);
-    for (let i = 0; i < allUsers.length; i++) {
-      if (allUsers[i].userName == e.target[0].value && allUsers[i].password == e.target[1].value) {
-        console.log(": " + allUsers[i].userName + " : " + allUsers[i].password);
-        userName1 = allUsers[i].userName;
-        navigate("/", { state: { userName: userName1 } });
-      } else {
-        console.log("Unsuccessful");
-      }
-    }
-
     e.preventDefault();
+    console.log(user);
+    // console.log("I am here: " + allUsers[0].userName);
+    const response = await axios.post("http://localhost:8080/login", user, {
+      auth: {
+        username: "user",
+        password: "user",
+      },
+    });
+    console.log(response);
+           navigate("/home", { state: { userName: user.userName } });
+    // for (let i = 0; i < allUsers.length; i++) {
+    //   if (allUsers[i].userName == e.target[0].value && allUsers[i].password == e.target[1].value) {
+    //     console.log(": " + allUsers[i].userName + " : " + allUsers[i].password);
+    //     userName1 = allUsers[i].userName;
+    //     navigate("/home", { state: { userName: userName1 } });
+    //   } else {
+    //     console.log("Unsuccessful");
+    //   }
+    // }
+
     // if (e.target[0].value == "WHO" && e.target[1].value == "test") {
     //   console.log("asfsfsaf " + (await axios.get("http://localhost:8080/allTasks")).data.todo);
     //   navigate("/");
